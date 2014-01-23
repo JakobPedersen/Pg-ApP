@@ -7,7 +7,8 @@
     "bootstrap": "~3.0.3",
     "angular-bootstrap": "~0.10.0",
     "angular-ui-utils": "~0.1.0",
-    "angular-ui-router": "0.2.7"
+    "angular-ui-router": "0.2.7",
+    "angular-ui-calendar": "~0.8.0"
   },
   "dependencies": {}
 }
