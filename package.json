@@ -1,16 +1,16 @@
 {
-  "author": "Josh David Miller",
-  "name": "ng-boilerplate",
-  "version": "0.3.1",
-  "homepage": "http://bit.ly/ng-boilerplate",
+  "author": "Jakob Pedersen",
+  "name": "Pg-ApP",
+  "version": "0.0.1",
+  "homepage": "http://bit.ly/pg-app",
   "licenses": {
     "type": "MIT",
-    "url": "https://raw.github.com/joshdmiller/ng-boilerplate/master/LICENSE"
+    "url": "https://raw.github.com/jakobpedersen/pg-app/master/LICENSE"
   },
-  "bugs": "https://github.com/joshdmiller/ng-boilerplate/issues",
+  "bugs": "https://github.com/jakobpedersen/pg-app/issues",
   "repository": {
     "type": "git",
-    "url": "git@github.com:joshdmiller/ng-boilerplate.git"
+    "url": "git@github.com:jakobpedersen/pg-app.git"
   },
   "dependencies": {},
   "devDependencies": {
