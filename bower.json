@@ -8,7 +8,11 @@
     "angular-bootstrap": "~0.10.0",
     "angular-ui-utils": "~0.1.0",
     "angular-ui-router": "0.2.7",
-    "angular-ui-calendar": "~0.8.0"
+    "angular-ui-calendar": "~0.8.0",
+    "firebase": "~1.0.2",
+    "jquery": "~2.1.0",
+    "firebase-simple-login": "~1.2.2",
+    "angularfire": "~0.6.0"
   },
   "dependencies": {}
 }
