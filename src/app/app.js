@@ -69,7 +69,7 @@ angular.module( 'Pg-ApP', [
   });  
 })
 
-.factory('AuthenticationService', function ($location, SessionService, $firebase, $firebaseSimpleLogin) {
+.factory('AuthenticationService', function (SessionService, $firebase, $firebaseSimpleLogin) {
 
   'use strict'; 
 
@@ -79,17 +79,14 @@ angular.module( 'Pg-ApP', [
         if (error) {
           // an error occurred while attempting login
           SessionService.currentUser = null;
-          $location.path('/login');
           console.log(error);
         } else if (user) {
           // user authenticated with Firebase
           SessionService.currentUser = user;
-          $location.path('/home');
           console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
         } else {
           // user is logged out
           SessionService.currentUser = null;
-          $location.path('/login');
           console.log('user is logged out');
         }
       });
@@ -108,7 +105,7 @@ angular.module( 'Pg-ApP', [
 
     isLoggedIn: function () {
       console.log('isLoggedIn with : ' + SessionService.currentUser);
-      return SessionService.currentUser !== null;
+      return _auth.user !== null && SessionService.currentUser !== null;
     }
   };
 })
