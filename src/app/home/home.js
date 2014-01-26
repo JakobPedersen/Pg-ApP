@@ -22,6 +22,7 @@ angular.module( 'Pg-ApP.home', [
  * this way makes each module more "self-contained".
  */
 .config(function config( $stateProvider ) {
+  console.log('Home Config');
   $stateProvider.state( 'home', {
     url: '/home',
     views: {
@@ -38,4 +39,5 @@ angular.module( 'Pg-ApP.home', [
  * And of course we define a controller for our route.
  */
 .controller( 'HomeCtrl', function HomeController( $scope ) {
+  console.log('HomeCtrl');
 });

@@ -12,16 +12,21 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'Pg-ApP.login', [
+ angular.module( 'Pg-ApP.login', [
   'ui.router'
-])
+  ])
 
 /**
  * Each section or module of the site can also have its own routes. AngularJS
  * will handle ensuring they are all available at run-time, but splitting it
  * this way makes each module more "self-contained".
  */
-.config(function config( $stateProvider ) {
+ .config(function config( $stateProvider ) {
+
+  "use strict";
+
+  console.log('LoginCtrl Config');
+  
   $stateProvider.state( 'login', {
     url: '/login',
     views: {
@@ -37,5 +42,16 @@ angular.module( 'Pg-ApP.login', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'LoginCtrl', function LoginController( $scope ) {
+ .controller( 'LoginCtrl', function LoginController( $scope, $location, AuthenticationService ) {
+
+  'use strict';
+
+  console.log('LoginCtrl');
+
+  $scope.loginUser = function() {
+    AuthenticationService.login();
+    if (AuthenticationService.isLoggedIn()) {
+      $location.path('/home');
+    }
+  };
 });
