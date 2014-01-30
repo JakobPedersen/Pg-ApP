@@ -59,7 +59,7 @@ angular.module( 'Pg-ApP', [
   });
 })
 
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {  
+.controller( 'AppCtrl', function AppCtrl ( $scope, $location, SessionService ) {  
   console.log('AppCtrl');
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     console.log('$stateChangeSuccess');
@@ -76,20 +76,21 @@ angular.module( 'Pg-ApP', [
   var _ref = new Firebase("https://pg-app.firebaseio.com/"); 
   var _auth = new FirebaseSimpleLogin(_ref, function(error, user) {
 
-        if (error) {
-          // an error occurred while attempting login
-          SessionService.currentUser = null;
-          console.log(error);
-        } else if (user) {
-          // user authenticated with Firebase
-          SessionService.currentUser = user;
-          console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
-        } else {
-          // user is logged out
-          SessionService.currentUser = null;
-          console.log('user is logged out');
-        }
-      });
+    if (error) {
+      // an error occurred while attempting login
+      SessionService.currentUser = null;
+      console.log(error);
+    } else if (user) {
+      // user authenticated with Firebase
+      SessionService.currentUser = user;
+      console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+    } else {
+      // user is logged out
+      SessionService.currentUser = null;
+      console.log('user is logged out');
+    }
+
+  });
 
   return {
 

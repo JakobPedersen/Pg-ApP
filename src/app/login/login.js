@@ -49,6 +49,7 @@
   console.log('LoginCtrl');
 
   $scope.loginUser = function() {
+    
     AuthenticationService.login();
     if (AuthenticationService.isLoggedIn()) {
       $location.path('/home');
