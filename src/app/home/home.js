@@ -13,7 +13,8 @@
  * specified, as shown below.
  */
  angular.module( 'Pg-ApP.home', [
-  'ui.router'
+  'ui.router',
+  'firebase'
   ])
 
 /**
@@ -38,34 +39,48 @@
 /**
  * And of course we define a controller for our route.
  */
- .controller( 'HomeCtrl', function HomeController( $scope, SessionService ) {
-  $scope.activeTodos = [{ 
-    "title" : "Ovn skal rengøres",
-    "timestamp" : "14-03-2013 14:38",
-    "createdBy" : "Jakse79",
-    "id" : 1
-    }];
+ .controller( 'HomeCtrl', function HomeController( $scope, todoService ) {
 
-    $scope.completedTodos = [{ 
-    "title" : "Ovn skal rengøres",
-    "timestamp" : "14-03-2013 14:38",
-    "completedBy" : "Jakse79",
-    "id" : 2
-    }];      
-  })
+  todoService.setListToScope($scope);
 
- .factory("TodoService", function( $firebase ) {
-  var ref = new Firebase("https://pg-np.firebaseio.com/todoList");
+  $scope.completeActiveTodo = function (activeTodo) {
+    todoService.completeTodo(activeTodo);
+  };
+
+  $scope.filterActiveTodosFn = function(todo)
+  {
+    if(todo.completedBy === undefined) {
+      return true; // this will be listed in the results
+    }
+
+    return false; // otherwise it won't be within the results
+  };
+
+  $scope.filterCompletedTodosFn = function(todo)
+  {
+    if(todo.completedBy !== undefined) {
+      return true; // this will be listed in the results
+    }
+
+    return false; // otherwise it won't be within the results
+  };
+})
+
+
+ .factory("todoService", function( $firebase ) {
+  var _url = 'https://pg-app.firebaseio.com/todos';
+  var _ref = new Firebase(_url);
+
   return {
-    getTodos: function() {
-      var todos = [];
-      ref.on("child_added", function(snapshot) {
-        todos.push(snapshot.val());
-      });
-      return todos;
-    },
+    setListToScope: function(scope) {
+      scope.todos = $firebase(_ref);
+    },    
     addTodo: function(message) {
-      ref.push(message);
+      _ref.push( { active: false, createdBy: 'Jakse79', name: message } );
+    },
+    completeTodo: function(todo) {
+      var todoRef = new Firebase(_url + '/' + id);
+      todoRef.update( { active: false, completedBy: 'Jakse79' } );      
     }
   };
 });

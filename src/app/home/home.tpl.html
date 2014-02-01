@@ -46,20 +46,20 @@
 			TODO liste
 			<button class="btn btn-primary pull-right">Ny</button>
 		</h3>
-		<ul class="list-group" ng-repeat="activeTodo in activeTodos">
-			<li class="list-group-item">
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="(id,todo) in todos">
 				<label class="checkbox-inline">
-					<input type="checkbox" ng-model="activeTodo.id"> {{ activeTodo.title }}
-					<i><small>- oprettet af {{ activeTodo.createdBy }} for 14 dage siden</small></i>
+					<input  type="checkbox" ng-model="id" ng-change="$parent.completeActiveTodo(id)"> {{ todo.title }}
+					<i><small>- oprettet af {{ todo.createdBy }} for 14 dage siden</small></i>
 				</label>
 			</li>
 		</ul>
 			<h4>Udf&oslash;rt siden sidst du var herinde</h4>
-		<ul class="list-group" ng-repeat="completedTodo in completedTodos">
-			<li class="list-group-item">
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="todo in todos">
 				<label class="checkbox-inline">
-					<strike><i>{{ completedTodo.title }}<i></strike>
-					<i><small>- udf&oslash;rt af {{ completedTodo.completedBy }} for 2 dage siden</small></i>
+					<strike><i>{{ todo.title }}<i></strike>
+					<i><small>- udf&oslash;rt af {{ todo.completedBy }} for 2 dage siden</small></i>
 				</label>
 			</li>
 			<center><a href="">Vis alle</a></center>
