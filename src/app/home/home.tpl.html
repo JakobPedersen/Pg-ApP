@@ -44,9 +44,16 @@
 	<div class="col-sm-5">
 		<h3>
 			TODO liste
-			<button class="btn btn-primary pull-right">Ny</button>
+			<button class="btn btn-primary pull-right" ng-hide="showNewTodo" ng-click="showNewTodo=true">Ny</button>
+			<button class="btn btn-primary pull-right" ng-show="showNewTodo" ng-click="newTitle='';showNewTodo=false">Fortryd</button>
+			<button class="btn btn-primary pull-right" ng-show="showNewTodo" ng-click="addTodo()">Gem</button>
 		</h3>
 		<ul class="list-group">
+			<li class="list-group-item" ng-show="showNewTodo">
+				
+					<input type="input" ng-model="newTitle" class="form-control" placeholder="Indtast ny todo...">					
+				
+			</li>
 			<li class="list-group-item" ng-repeat="(id,todo) in todos">
 				<label class="checkbox-inline">
 					<input  type="checkbox" ng-model="id" ng-change="$parent.completeActiveTodo(id)"> {{ todo.title }}

@@ -47,22 +47,10 @@
     todoService.completeTodo(activeTodo);
   };
 
-  $scope.filterActiveTodosFn = function(todo)
-  {
-    if(todo.completedBy === undefined) {
-      return true; // this will be listed in the results
-    }
-
-    return false; // otherwise it won't be within the results
-  };
-
-  $scope.filterCompletedTodosFn = function(todo)
-  {
-    if(todo.completedBy !== undefined) {
-      return true; // this will be listed in the results
-    }
-
-    return false; // otherwise it won't be within the results
+  $scope.addTodo = function () {
+    todoService.addTodo($scope.newTitle);
+    $scope.newTitle = '';
+    $scope.showNewTodo = false;
   };
 })
 
@@ -76,7 +64,7 @@
       scope.todos = $firebase(_ref);
     },    
     addTodo: function(message) {
-      _ref.push( { active: false, createdBy: 'Jakse79', name: message } );
+      _ref.push( { createdBy: 'Jakse79', title: message } );
     },
     completeTodo: function(todo) {
       var todoRef = new Firebase(_url + '/' + id);
