@@ -43,14 +43,18 @@
 
   todoService.setListToScope($scope);
 
-  $scope.completeActiveTodo = function (activeTodo) {
-    todoService.completeTodo(activeTodo);
+  $scope.completeActiveTodo = function (id) {
+    todoService.completeTodo(id);
   };
 
   $scope.addTodo = function () {
     todoService.addTodo($scope.newTitle);
     $scope.newTitle = '';
     $scope.showNewTodo = false;
+  };
+
+  $scope.completedByIsUndefined = function(id, todo) {
+    return todo.completedBy === undefined;
   };
 })
 
@@ -66,9 +70,9 @@
     addTodo: function(message) {
       _ref.push( { createdBy: 'Jakse79', title: message } );
     },
-    completeTodo: function(todo) {
+    completeTodo: function(id) {
       var todoRef = new Firebase(_url + '/' + id);
-      todoRef.update( { active: false, completedBy: 'Jakse79' } );      
+      todoRef.update( { completedBy: 'Jakse79' } );      
     }
   };
 });

@@ -4,11 +4,13 @@
  * build process will exclude all `.spec.js` files from the build
  * automatically.
  */
-describe( 'home section', function() {
-  beforeEach( module( 'Pg-ApP.home' ) );
+ describe( 'home section', function() {
+	var $scope, todoService;
 
-  it( 'should have a dummy test', inject( function() {
-    expect( true ).toBeTruthy();
-  }));
-});
+	beforeEach( module( 'Pg-ApP.home' ) );	
 
+	it( 'should reset title after todo is added', function() {
+		//$scope.addTodo();
+		expect( true ).toBeTruthy();
+	});
+ });

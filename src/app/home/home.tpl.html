@@ -50,27 +50,15 @@
 		</h3>
 		<ul class="list-group">
 			<li class="list-group-item" ng-show="showNewTodo">
-				
-					<input type="input" ng-model="newTitle" class="form-control" placeholder="Indtast ny todo...">					
-				
+				<input type="input" ng-model="newTitle" class="form-control" placeholder="Indtast ny todo...">
 			</li>
-			<li class="list-group-item" ng-repeat="(id,todo) in todos">
+			<li class="list-group-item" ng-repeat="(id,todo) in todos | filter:completedByIsUndefined">
 				<label class="checkbox-inline">
-					<input  type="checkbox" ng-model="id" ng-change="$parent.completeActiveTodo(id)"> {{ todo.title }}
-					<i><small>- oprettet af {{ todo.createdBy }} for 14 dage siden</small></i>
+					<input type="checkbox" ng-model="isSelected" ng-change="$parent.completeActiveTodo(id, todo)"> {{ todo.title }}
+					<i><small>- oprettet af {{ todo.createdBy }} for 14 dage siden, {{ id }}</small></i>
 				</label>
 			</li>
-		</ul>
-			<h4>Udf&oslash;rt siden sidst du var herinde</h4>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="todo in todos">
-				<label class="checkbox-inline">
-					<strike><i>{{ todo.title }}<i></strike>
-					<i><small>- udf&oslash;rt af {{ todo.completedBy }} for 2 dage siden</small></i>
-				</label>
-			</li>
-			<center><a href="">Vis alle</a></center>
-		</ul>
+		</ul>			
 		<hr />
 
 		<h3>Beskeder</h3>
