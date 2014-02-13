@@ -44,13 +44,12 @@
 	<div class="col-sm-5">
 		<h3>
 			TODO liste
-			<button class="btn btn-primary pull-right" ng-hide="showNewTodo" ng-click="showNewTodo=true">Ny</button>
-			<button class="btn btn-primary pull-right" ng-show="showNewTodo" ng-click="newTitle='';showNewTodo=false">Fortryd</button>
-			<button class="btn btn-primary pull-right" ng-show="showNewTodo" ng-click="addTodo()">Gem</button>
 		</h3>
 		<ul class="list-group">
-			<li class="list-group-item" ng-show="showNewTodo">
-				<input type="input" ng-model="newTodo" class="form-control" placeholder="Indtast ny todo...">
+			<li class="list-group-item">
+				<form id="todo-form" ng-submit="addTodo()">
+					<input id="new-todo" placeholder="Hvad skal der laves?" ng-model="newTodo" class="form-control" autofocus>
+				</form>
 			</li>
 			<li class="list-group-item" ng-repeat="(id,todo) in todos | todoFilter">
 				<label class="checkbox-inline">
