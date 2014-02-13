@@ -39,40 +39,69 @@
 /**
  * And of course we define a controller for our route.
  */
- .controller( 'HomeCtrl', function HomeController( $scope, todoService ) {
+ .controller( 'HomeCtrl', function HomeController( $scope, $firebase, firebaseUrl ) {
 
-  todoService.setListToScope($scope);
+  var _ref = new Firebase(firebaseUrl);
 
-  $scope.completeActiveTodo = function (id) {
-    todoService.completeTodo(id);
-  };
+  $scope.todos = $firebase(_ref).$child('todos');
+  $scope.newTodo = '';
+  $scope.editedTodo = null;
 
   $scope.addTodo = function () {
-    todoService.addTodo($scope.newTitle);
-    $scope.newTitle = '';
-    $scope.showNewTodo = false;
+    var newTodo = $scope.newTodo.trim();
+    $scope.todos.$add({
+      title: newTodo,
+      completed: false
+    });
+    $scope.newTodo = '';
+  };
+ 
+  $scope.editTodo = function (id) {
+    $scope.editedTodo = $scope.todos[id];
+    $scope.originalTodo = angular.extend({}, $scope.editedTodo);
+  };  
+
+  $scope.doneEditing = function (id) {
+    $scope.editedTodo = null;
+    var title = $scope.todos[id].title.trim();
+    if (title) {
+      $scope.todos.$save(id);
+    } else {
+      $scope.removeTodo(id);
+    }
   };
 
-  $scope.completedByIsUndefined = function(id, todo) {
-    return todo.completedBy === undefined;
+  $scope.revertEditing = function (id) {
+    $scope.todos[id] = $scope.originalTodo;
+    $scope.doneEditing(id);
+  };
+
+  $scope.removeTodo = function (id) {
+    $scope.todos.$remove(id);
+  };
+
+  $scope.toggleCompleted = function (id) {
+    var todo = $scope.todos[id];
+    todo.completed = !todo.completed;
+    $scope.todos.$save(id);
+  };
+
+  $scope.clearCompletedTodos = function () {
+    angular.forEach($scope.todos.$getIndex(), function (index) {
+      if ($scope.todos[index].completed) {
+        $scope.todos.$remove(index);
+      }
+    });
   };
 })
-
-
- .factory("todoService", function( $firebase ) {
-  var _url = 'https://pg-app.firebaseio.com/todos';
-  var _ref = new Firebase(_url);
-
-  return {
-    setListToScope: function(scope) {
-      scope.todos = $firebase(_ref);
-    },    
-    addTodo: function(message) {
-      _ref.push( { createdBy: 'Jakse79', title: message } );
-    },
-    completeTodo: function(id) {
-      var todoRef = new Firebase(_url + '/' + id);
-      todoRef.update( { completedBy: 'Jakse79' } );      
-    }
+.filter('todoFilter', function () {
+  return function (input) {
+    var filtered = {};
+    angular.forEach(input, function (todo, id) {      
+        if (todo.completed != true) {
+          filtered[id] = todo;
+        }      
+    });
+    return filtered;
   };
 });

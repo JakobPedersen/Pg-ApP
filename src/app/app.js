@@ -59,6 +59,8 @@ angular.module( 'Pg-ApP', [
   });
 })
 
+.value("firebaseUrl", "https://pg-app.firebaseio.com")
+
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location, SessionService ) {  
   console.log('AppCtrl');
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
@@ -69,11 +71,11 @@ angular.module( 'Pg-ApP', [
   });  
 })
 
-.factory('AuthenticationService', function (SessionService, $firebase, $firebaseSimpleLogin) {
+.factory('AuthenticationService', function (SessionService, $firebase, $firebaseSimpleLogin, firebaseUrl) {
 
   'use strict'; 
 
-  var _ref = new Firebase("https://pg-app.firebaseio.com/"); 
+  var _ref = new Firebase(firebaseUrl); 
   var _auth = new FirebaseSimpleLogin(_ref, function(error, user) {
 
     if (error) {

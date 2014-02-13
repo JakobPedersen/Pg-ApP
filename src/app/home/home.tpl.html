@@ -50,11 +50,11 @@
 		</h3>
 		<ul class="list-group">
 			<li class="list-group-item" ng-show="showNewTodo">
-				<input type="input" ng-model="newTitle" class="form-control" placeholder="Indtast ny todo...">
+				<input type="input" ng-model="newTodo" class="form-control" placeholder="Indtast ny todo...">
 			</li>
-			<li class="list-group-item" ng-repeat="(id,todo) in todos | filter:completedByIsUndefined">
+			<li class="list-group-item" ng-repeat="(id,todo) in todos | todoFilter">
 				<label class="checkbox-inline">
-					<input type="checkbox" ng-model="isSelected" ng-change="$parent.completeActiveTodo(id, todo)"> {{ todo.title }}
+					<input type="checkbox" ng-model="todo.completed" ng-change="todos.$save(id)"> {{ todo.title }}
 					<i><small>- oprettet af {{ todo.createdBy }} for 14 dage siden, {{ id }}</small></i>
 				</label>
 			</li>
